@@ -4,7 +4,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require("autoload.php");
-//this part is from A-Saleh code 
 spl_autoload_register(function ($class) {
   include "Model\\$class.php";
 });
