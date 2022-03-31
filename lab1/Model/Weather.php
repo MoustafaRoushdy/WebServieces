@@ -19,6 +19,8 @@ class Weather implements Weather_Interface {
     private $url;
 
     public function __construct() {
+
+
        
     }
 
@@ -52,6 +54,26 @@ class Weather implements Weather_Interface {
             ]);
         }
       
+    }
+
+    public function get_weather_guzzle($cityid){
+
+        $this->url = __WEATHER_URL1.$cityid.__WEATHER_URL2 ; 
+        var_dump($this->url);
+
+        try{
+        $client = new \GuzzleHttp\Client();
+        $response = $client->get($this->url);
+        return $response->getBody();
+        }
+        catch(Exception $e)
+        {
+            return json_encode([
+                "status"=>501,
+                "message"=>"Gateway error"
+            ]);
+        }
+
     }
 
     public function get_current_time() {

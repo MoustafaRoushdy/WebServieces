@@ -3,13 +3,14 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require("autoload.php");
-spl_autoload_register(function ($class) {
-  include "Model\\$class.php";
-});
+// require("autoload.php");
+require("vendor/autoload.php");
+// spl_autoload_register(function ($class) {
+  // include "Model\\$class.php";
+// });
 
-include "Model/Weather_Interface.php";
-include "Model/Weather.php";
+// include "Model/Weather_Interface.php";
+// include "Model/Weather.php";
 ini_set('memory_limit', '-1');
 $weather = new Weather();
 $egyption_cities = $weather->get_cities();
@@ -19,7 +20,9 @@ $egyption_cities = $weather->get_cities();
  var_dump($_POST);
 if (isset($_POST["city"])) {
   $city_id = $_POST["city"];
-  $detailed_weather = $weather ->get_weather($city_id);
+  // $detailed_weather = $weather ->get_weather($city_id);
+  $detailed_weather = $weather ->get_weather_guzzle($city_id);
+
   $detailed_weather = json_decode($detailed_weather);
   echo "<h3>".$weather->get_current_time()."</h3>";
   echo "<h3>".$detailed_weather->weather[0]->description."</h3><br>";
